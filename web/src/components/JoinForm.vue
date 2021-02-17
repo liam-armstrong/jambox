@@ -1,26 +1,35 @@
 <template>
   <b-form inline>
     <b-form-input v-model="boxId" placeholder="JamBox Id" />
+    <b-form-input v-model="callId" placeholder="Meeting Id" />
     <b-button variant="primary" @click="joinCall">
-      Start
+      Join
     </b-button>
   </b-form>
 </template>
 
 <script>
 export default {
-  name: "TeacherForm",
+  name: "JoinForm",
+  props: {
+    initCallId: {
+      type: String,
+      default: ''
+    }
+  },
   data() {
     return {
-      boxId: ""
+      boxId: "",
+      callId: this.initCallId
     }
+  },
+  mounted() {
+    console.log(this.callId)
   },
   methods: {
     joinCall() {
       // Make async calls to connect box to server at call id here
-      // Get random id which maps to server id here
-      let r = Math.random().toString(36).substr(2, 8);
-      this.$router.push({ path: `/call/${r}` })
+      this.$router.push({ path: `/call/${this.callId}`, query: { jamboxID: this.boxId } })
     }
   }
 };

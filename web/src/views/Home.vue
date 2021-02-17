@@ -1,18 +1,21 @@
 <template>
   <div class="app">
     <div class="nav">
-      <a v-if="state!=='none'" @click="state='none'">Back</a>
+      <a v-if="state!==''" @click="state=''">Back</a>
     </div>
     <div class="home">
       <h1>Welcome to JamBox</h1>
-      <student-form v-if="state==='student'" />
-      <teacher-form v-else-if="state==='teacher'" />
+      <join-form
+        v-if="state === 'join'"
+        :init-call-id="$route.query.callId"
+      />
+      <create-form v-else-if="state==='create'" />
       <div v-else class="btns">
-        <b-button @click="state='student'">
-          Student
+        <b-button @click="state='create'">
+          Create Call
         </b-button>
-        <b-button @click="state='teacher'">
-          Teacher
+        <b-button variant="primary" @click="state='join'">
+          Join Call
         </b-button>
       </div>
     </div>
@@ -20,18 +23,23 @@
 </template>
 
 <script>
-import TeacherForm from '../components/TeacherForm.vue'
-import StudentForm from '../components/StudentForm.vue'
+import CreateForm from '../components/CreateForm.vue'
+import JoinForm from '../components/JoinForm.vue'
 
 export default {
   name: "Home",
   components: {
-    StudentForm,
-    TeacherForm
+    JoinForm,
+    CreateForm
   },
   data() {
     return {
-      state: "none",
+      state: '',
+    }
+  },
+  mounted() {
+    if(this.$route.query.callId){
+      this.state = 'join'
     }
   }
 }
