@@ -1,0 +1,11 @@
+version: "3.7"
+services:
+  jam-node:
+    build: .
+    container_name: jam-node 
+    restart: always
+    ports:
+      - "22124:22124/udp"
+      - "3000:3000"
+    environment:
+      TZ: "America/Los_Angeles" 

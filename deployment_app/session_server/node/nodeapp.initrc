@@ -1,0 +1,5 @@
+#!/sbin/openrc-run
+
+name="nodeapp"
+command="node /app/app.js -b"
+pidfile="/run/${RC_SVCNAME}.pid"

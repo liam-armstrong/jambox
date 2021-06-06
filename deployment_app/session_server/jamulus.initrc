@@ -1,0 +1,7 @@
+#!/sbin/openrc-run
+
+name="jamulus"
+command="Jamulus -b"
+pidfile="/run/${RC_SVCNAME}.pid"
+command_args="-s -n"
+output_log="/app/jamulus.log"
